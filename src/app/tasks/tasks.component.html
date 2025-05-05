@@ -1,0 +1,25 @@
+<!-- Your existing tasks.component.html -->
+<section id="tasks">
+    <header>
+      <h2>{{ name() }}'s Tasks</h2>
+      <menu>
+        <button (click)="onStartAddTask()">Add Task</button>
+      </menu>
+    </header>
+  
+    <!-- Add this right here - before the tasks list -->
+    @if (isAddingTask) {
+      <app-new-task 
+        (cancel)="onCancelAddTask()" 
+        (add)="onAddTask($event)"
+      ></app-new-task>
+    }
+  
+    <ul>
+      @for (task of selectedUserTasks; track task.id) {
+        <li>
+          <app-task [task]="task" (complete)="onCompleteTask($event)" />
+        </li>
+      }
+    </ul>
+  </section>
